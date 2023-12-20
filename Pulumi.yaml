@@ -1,0 +1,4 @@
+name: pulumi-osk-kubeadm
+runtime: go
+description: A Go Pulumi program to create osk instances and create a k8s cluster using kubeadm
+config: "./"

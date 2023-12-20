@@ -1,0 +1,27 @@
+clustername: {{ .ClusterName }}
+cni: {{ .Cni }}
+cri: {{ .Cri }}
+private_registry: {{ .PrivateRegistry }}
+{{- $length := len .InsecureRegistries }} {{- if ne $length 0 }}
+insecure_registries: 
+{{- range $reg := .InsecureRegistries }}
+- {{ $reg }}
+{{- end }}
+{{- else }}
+insecure_registries: []
+{{- end }}
+{{- if .LoadBalancer }}
+port_mappings:
+  {{- range $name, $target := .LoadBalancer.PortMappings }}
+  {{ $name }}: 
+    source: {{ $target.Source }}
+    target: {{ $target.Target }}
+  {{- end }}
+{{- else }}
+port_mappings: {}
+{{- end }}
+
+ntp_server: 10.17.0.10
+secondary_ntp_server: 10.17.0.11
+
+kubernetes_version: {{ .K8sversion }}
