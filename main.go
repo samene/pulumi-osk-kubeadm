@@ -32,7 +32,8 @@ func readTopology(filename string) *Topology {
 	topology := &Topology{}
 	topo, err := os.ReadFile(filename)
 	if err != nil {
-		log.Fatal().Err(err).Msgf("Cannot open topology file %s ", filename)
+		d, _ := os.Getwd()
+		log.Fatal().Err(err).Msgf("Cannot open topology file %s. Full path of file is %s", filename, d)
 	}
 	err = yaml.Unmarshal(topo, &topology)
 	if err != nil {
